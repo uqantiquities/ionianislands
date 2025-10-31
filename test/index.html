@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--<title>Auto Play Audio with Image</title>-->
+  <style>
+    body {
+      margin: 0;
+      background-color: #363a3b; /* dark grey */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    img {
+      width: 90vw;          /* image scales to 90% of viewport width */
+      max-width: 600px;     /* optional: limit max size on desktop */
+      aspect-ratio: 1 / 1;  /* keeps it square */
+      object-fit: cover;    /* maintains proper crop/fit */
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Replace 'your-audio-file.mp3' with your audio path -->
+  <audio autoplay loop>
+    <source src="intro.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Replace 'your-image.jpg' with your image path -->
+  <img src="square.png" alt="Responsive square image">
+
+</body>
+</html>
