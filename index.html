@@ -1,209 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ionian Islands Tiles</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ionian Islands Tiles</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
+  <style>
+    body {
+      background-color: #3A3D40;
+      color: #f5f5f5;
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1s ease-in-out;
+    }
 
-  body {
-    background-color: #3A3D40;
-    color: #f5f5f5;
-    font-family: 'Nunito', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
-    animation: fadeIn 1s ease-in-out;
-  }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .container {
+      max-width: 1400px;
+      padding: 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-  .container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-  }
+    h1 {
+      font-family: 'Crimson Pro', serif;
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-  h1 {
-    font-family: 'Crimson Pro', serif;
-    text-align: center;
-    font-size: 3vw;
-    margin: 0.5vh 0;
-  }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
 
-  .grid {
-    display: grid;
-    width: 100%;
-    height: calc(100% - 10vh);
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    grid-auto-rows: 1fr;
-    gap: 0.5vh;
-  }
+    .tile {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      cursor: pointer;
+      overflow: hidden;
+      background-color: #555;
+      border: 2px solid #666;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
 
-  .tile {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1/1;
-    cursor: pointer;
-    overflow: hidden;
-    background-color: #555;
-    border: 1px solid #666;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    transition: transform 0.2s;
-  }
+    .tile:hover { transform: scale(1.03); }
 
-  .tile:hover { transform: scale(1.05); }
+    .tile img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-  .tile img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    .tile-label {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      color: #f5f5f5;
+      background-color: rgba(0,0,0,0.5);
+      padding: 4px 8px;
+      font-size: 1rem;
+      border-radius: 4px;
+      text-align: center;
+    }
 
-  .tile-label {
-    position: absolute;
-    bottom: 2px;
-    left: 2px;
-    right: 2px;
-    color: #f5f5f5;
-    background-color: rgba(0,0,0,0.5);
-    padding: 1px 2px;
-    font-size: 1.2vw;
-    border-radius: 3px;
-    text-align: center;
-  }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 2vh;
-  }
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      animation: zoomIn 0.3s ease-in-out;
+      text-align: center;
+    }
 
-  .modal-content {
-    position: relative;
-    max-width: 90%;
-    max-height: 90%;
-    text-align: center;
-  }
+    @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-  .modal-content img {
-    width: auto;
-    max-width: 80vw;
-    max-height: 50vh;
-    border-radius: 4px;
-  }
+    .modal-content img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 4px;
+    }
 
-  .modal-content audio {
-    margin-top: 1vh;
-    width: 80%;
-    max-width: 400px;
-  }
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      font-size: 1.5rem;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
 
-  .close-btn {
-    position: absolute;
-    top: 0.5vh; right: 0.5vh;
-    color: #fff;
-    background: rgba(0,0,0,0.5);
-    border: none;
-    font-size: 3vw;
-    padding: 0.5vh 1vh;
-    cursor: pointer;
-    border-radius: 4px;
-  }
+    .close-btn:hover { background: rgba(0,0,0,0.8); }
 
-  .close-btn:hover { background: rgba(0,0,0,0.8); }
+    footer {
+      margin-top: auto;
+      padding: 12px;
+      font-size: 0.8rem;
+      color: #ccc;
+      text-align: center;
+      width: 100%;
+      font-family: 'Roboto Condensed', sans-serif;
+    }
 
-  footer {
-    padding: 0.5vh;
-    font-size: 2vw;
-    color: #ccc;
-    text-align: center;
-    width: 100%;
-    font-family: 'Roboto Condensed', sans-serif;
-  }
-</style>
+    @media (max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, 1fr); } }
+    @media (max-width: 500px) { .grid { grid-template-columns: 1fr; grid-template-rows: repeat(20, 1fr); } }
+  </style>
 </head>
 
 <body>
-<div class="container">
-  <h1>Choose a story to explore</h1>
-  <div class="grid" id="grid">
-    <script>
-      const labels = [
-        "Corfu Origins","Mariner’s Tale","Sanctuary at Sea","Ionian Journeys","Odyssean Echoes",
-        "Island Bound","Harbour Lives","Tides of Memory","Stories from the Straits","Voyagers",
-        "Island Connections","Lost & Found","Letters Home","Maps of Meaning","Crossing Points",
-        "Paths of the Past","Gathering Places","Uncharted","Island Voices","Final Passage"
-      ];
+  <div class="container">
+    <h1>Choose a story to explore</h1>
+    <div class="grid" id="grid">
+      <script>
+        const labels = [
+          "Corfu Origins", "Mariner’s Tale", "Sanctuary at Sea", "Ionian Journeys", "Odyssean Echoes",
+          "Island Bound", "Harbour Lives", "Tides of Memory", "Stories from the Straits", "Voyagers",
+          "Island Connections", "Lost & Found", "Letters Home", "Maps of Meaning", "Crossing Points",
+          "Paths of the Past", "Gathering Places", "Uncharted", "Island Voices", "Final Passage"
+        ];
 
-      for(let i=1;i<=20;i++){
-        document.write(`
-          <div class="tile" data-index="${i}">
-            <img src="Tiles/Tile ${i}.jpg" alt="${labels[i-1]}">
-            <div class="tile-label">${labels[i-1]}</div>
-          </div>
-        `);
-      }
-    </script>
+        for (let i = 1; i <= 20; i++) {
+          document.write(`
+            <div class="tile" data-index="${i}">
+              <img src="Tiles/Tile ${i}.jpg" alt="${labels[i-1]}">
+              <div class="tile-label">${labels[i-1]}</div>
+            </div>
+          `);
+        }
+      </script>
+    </div>
   </div>
-</div>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <button class="close-btn" id="closeBtn">&times;</button>
-    <img id="modalImg" src="" alt="modal tile">
-    <audio id="modalAudio" controls></audio>
-    <div id="modalLabel" style="color:white; margin-top:1vh;"></div>
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeBtn">&times;</button>
+      <img id="modalImg" src="" alt="modal tile">
+      <audio id="modalAudio" controls style="margin-top: 12px; width: 100%; max-width: 400px;"></audio>
+      <div id="modalLabel" style="color:white; margin-top:8px;"></div>
+    </div>
   </div>
-</div>
 
-<footer>
-  &copy; 2025 Ionian Islands Project. All rights reserved.
-</footer>
+  <footer>
+    &copy; 2025 Ionian Islands Project. All rights reserved.
+  </footer>
 
-<script>
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modalImg');
-const modalLabel = document.getElementById('modalLabel');
-const modalAudio = document.getElementById('modalAudio');
-const closeBtn = document.getElementById('closeBtn');
+  <script>
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalLabel = document.getElementById('modalLabel');
+    const modalAudio = document.getElementById('modalAudio');
+    const closeBtn = document.getElementById('closeBtn');
 
-document.querySelectorAll('.tile').forEach(tile => {
-  tile.addEventListener('click', () => {
-    const idx = tile.getAttribute('data-index');
-    modalImg.src = `Tiles/Tile ${idx}.jpg`;
-    modalLabel.textContent = labels[idx-1];
-    modalAudio.src = `Audio/Audio ${idx}.mp3`;
-    modal.style.display = 'flex';
-  });
-});
+    document.querySelectorAll('.tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        const idx = tile.getAttribute('data-index');
+        modalImg.src = `Tiles/Tile ${idx}.jpg`;
+        modalLabel.textContent = labels[idx-1];
+        modalAudio.src = `Audio/Audio ${idx}.mp3`; // assumes audio files in Audio folder
+        modal.style.display = 'flex';
+      });
+    });
 
-closeBtn.addEventListener('click', ()=>{ modal.style.display='none'; });
-modal.addEventListener('click', e=>{ if(e.target===modal) modal.style.display='none'; });
-</script>
+    closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+    modal.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+  </script>
 </body>
 </html>
