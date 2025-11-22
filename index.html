@@ -161,7 +161,7 @@
 
 <body>
   <div class="container">
-    <h1>Tile Gallery</h1>
+    <h1>Choose a story to explore</h1>
     <div class="grid">
       <!-- Generate 20 tiles -->
       <!-- assuming your images are in `tiles/Tile 1.jpg`, etc. -->
@@ -171,12 +171,46 @@
         for (let i = 1; i <= 20; i++) {
           document.write(`
             <div class="tile" data-index="${i}">
-              <img src="tiles/Tile ${i}.jpg" alt="Tile ${i}">
+              <img src="Tiles/Tile ${i}.jpg" alt="Tile ${i}">
               <div class="tile-label">Tile ${i}.jpg</div>
             </div>
           `);
         }
       </script>
+
+      <script>
+  const labels = [
+    "Corfu Origins",
+    "Mariner’s Tale",
+    "Sanctuary at Sea",
+    "Ionian Journeys",
+    "Odyssean Echoes",
+    "Island Bound",
+    "Harbour Lives",
+    "Tides of Memory",
+    "Stories from the Straits",
+    "Voyagers",
+    "Island Connections",
+    "Lost & Found",
+    "Letters Home",
+    "Maps of Meaning",
+    "Crossing Points",
+    "Paths of the Past",
+    "Gathering Places",
+    "Uncharted",
+    "Island Voices",
+    "Final Passage"
+  ];
+
+  for (let i = 1; i <= 20; i++) {
+    document.write(`
+      <div class="tile" data-index="${i}">
+        <img src="Tiles/Tile ${i}.jpg" alt="${labels[i-1]}">
+        <div class="tile-label">${labels[i-1]}</div>
+      </div>
+    `);
+  }
+</script>
     </div>
   </div>
 
