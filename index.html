@@ -39,7 +39,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       grid-template-rows: repeat(4, 1fr);
       gap: 20px;
       width: 100%;
@@ -135,7 +135,7 @@
     }
 
     @media (max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, 1fr); } }
-    @media (max-width: 500px) { .grid { grid-template-columns: 1fr; grid-template-rows: repeat(20, 1fr); } }
+    @media (max-width: 500px) { .grid { grid-template-columns: 1fr; grid-template-rows: repeat(21, 1fr); } }
   </style>
 </head>
 
@@ -148,10 +148,10 @@
           "Corfu Origins", "Mariner’s Tale", "Sanctuary at Sea", "Ionian Journeys", "Odyssean Echoes",
           "Island Bound", "Harbour Lives", "Tides of Memory", "Stories from the Straits", "Voyagers",
           "Island Connections", "Lost & Found", "Letters Home", "Maps of Meaning", "Crossing Points",
-          "Paths of the Past", "Gathering Places", "Uncharted", "Island Voices", "Final Passage"
+          "Paths of the Past", "Gathering Places", "Uncharted", "Island Voices", "Final Passage", "Kythera"
         ];
 
-        for (let i = 1; i <= 20; i++) {
+        for (let i = 1; i <= 21; i++) {
           document.write(`
             <div class="tile" data-index="${i}">
               <img src="Tiles/Tile ${i}.jpg" alt="${labels[i-1]}">
@@ -173,7 +173,7 @@
   </div>
 
   <footer>
-    &copy; 2025 Ionian Islands Project. All rights reserved.
+    &copy; If you would like to contribute your story of the Ionian Islands, please contact Museum staff who can provide you with the relevant paperwork and arrange a time to record your story. 
   </footer>
 
   <script>
