@@ -200,6 +200,19 @@
     closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
     modal.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
 
+    // Pause audio whenever the modal is closed
+function closeModal() {
+  modal.style.display = 'none';
+  modalAudio.pause();
+  modalAudio.currentTime = 0; // optional: reset to start
+}
+
+// Replace your current close handlers with this:
+closeBtn.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { 
+  if (e.target === modal) closeModal();
+});
+
   </script>
 </body>
 </html>
