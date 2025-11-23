@@ -199,6 +199,21 @@
 
     closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
     modal.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+
+    var modal = document.getElementById('myModal');
+var audio = document.getElementById('myAudio');
+
+function closeModal() {
+  // whatever you already do to hide the modal
+  if (audio) {
+    audio.pause();
+    // optional: audio.currentTime = 0;
+  }
+  modal.style.display = 'none';  // example
+}
+
+// Suppose you have a button that closes modal:
+document.getElementById('closeBtn').addEventListener('click', closeModal);
   </script>
 </body>
 </html>
