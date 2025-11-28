@@ -9,78 +9,85 @@
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      background-color: #3A3D40;
-      color: #f5f5f5;
-      font-family: 'Nunito', sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 1s ease-in-out;
-    }
+  html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* no scrolling at all */
+}
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+body {
+  background-color: #3A3D40;
+  color: #f5f5f5;
+  font-family: 'Nunito', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+    
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+.container {
+  flex: 1;             /* takes all available space above footer */
+  width: 100%;
+  padding: 0;          /* remove padding that adds scroll height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical center */
+  align-items: center;     /* horizontal center */
+  box-sizing: border-box;
+}
 
-    .container {
-      max-width: 1600px;
-      padding: 20px;
-      width: 100%;
-      box-sizing: border-box;
-    }
+h1 {
+  font-family: 'Crimson Pro', serif;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
 
-    h1 {
-      font-family: 'Crimson Pro', serif;
-      text-align: center;
-      margin-bottom: 40px;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 20px;
+  width: 90vmin;       /* key: responsive scaling based on viewport */
+  height: 60vmin;      /* grid auto-scales but stays proportional */
+  max-width: 1500px;
+  max-height: 900px;
+  justify-content: center;
+  box-sizing: border-box;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(4, 1fr);
-      gap: 20px;
-      width: 100%;
-      justify-content: center; /* centers the grid horizontally */
-    }
+.tile {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* keep squares */
+  cursor: pointer;
+  overflow: hidden;
+  background-color: #555;
+  border: 2px solid #666;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  transition: transform 0.2s;
+}
+.tile:hover { transform: scale(1.03); }
+.tile img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
 
-    .tile {
-      position: relative;
-      width: 100%;
-      padding-top: 100%;
-      cursor: pointer;
-      overflow: hidden;
-      background-color: #555;
-      border: 2px solid #666;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-      transition: transform 0.2s;
-    }
+.tile-label {
+  position: absolute;
+  bottom: 8px; left: 8px; right: 8px;
+  background: rgba(0,0,0,0.5);
+  padding: 4px 8px;
+  font-size: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
 
-    .tile:hover { transform: scale(1.03); }
-
-    .tile img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .tile-label {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      right: 8px;
-      color: #f5f5f5;
-      background-color: rgba(0,0,0,0.5);
-      padding: 4px 8px;
-      font-size: 1rem;
-      border-radius: 4px;
-      text-align: center;
-    }
+    
 
     .modal {
       display: none;
@@ -124,42 +131,60 @@
     }
 
     .close-btn:hover { background: rgba(0,0,0,0.8); }
+footer {
+  flex-shrink: 0; /* never pushes container taller */
+  width: 100%;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 12px;
+  background: rgba(0,0,0,0.2);
+  color: #ccc;
+  font-family: 'Roboto Condensed', sans-serif;
+  box-sizing: border-box;
+}
 
-    footer {
-      margin-top: auto;
-      padding: 12px;
-      font-size: 1rem;
-      color: #ccc;
-      text-align: center;
-      width: 100%;
-      font-family: 'Roboto', sans-serif;
-    }
+/* responsive columns for smaller screens */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+}
 
-    @media (max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, 1fr); } }
-    @media (max-width: 500px) { .grid { grid-template-columns: 1fr; grid-template-rows: repeat(20, 1fr); } }
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 90vmin;
+    height: 90vmin;
+    gap: 12px;
+  }
+}
   </style>
 </head>
 
 <body>
   <div class="container">
     <h1>Choose an oral history to explore in full</h1>
-    <div class="grid" id="grid">
+    <div class="grid" id="grid"></div>
       <script>
         const labels = [
           "Con Aroney (15:22)", "Vera Black (25:39)", "Anastasia Blake (24:53)", "Beulah Castan (47:31)", "Nicholas Comino (58:33)", "Stella Comino (46:43)",
           "Jim Crithary (22:29)", "Marina Crithary (18:18)", "John Kallinicos (53:55)", "Maria Lecatsas (13:13)", "Katerini Manolatos (8:23)",
           "Konstantina Manolatos (11:17)", "Maria Masselos (29:30)", "Effie Patrikios (15:56)", "John Pippos (22:49)", "Penny Pippos (12:32)",
-          "Emmanuel Prineas (14:33)", "Jan Psaltis (22:53)",//"Erene Rossetti (31:59)", "Eve Terry (12:21)", "Barbara Vasdekis (11:13)", "Chrys Zantis (44:52)",
+          "Emmanuel Prineas (14:33)", "Jan Psaltis (22:53)","Erene Rossetti (31:59)", "Eve Terry (12:21)", "Barbara Vasdekis (11:13)", "Chrys Zantis (44:52)",
         ];
 
-        for (let i = 1; i <= 18; i++) {
-          document.write(`
-            <div class="tile" data-index="${i}">
-              <img src="Tiles/Tile ${i}.jpg" alt="${labels[i-1]}">
-              <div class="tile-label">${labels[i-1]}</div>
-            </div>
-          `);
-        }
+        const grid = document.getElementById('grid');
+for (let i = 1; i <= 22; i++) {
+  grid.innerHTML += `
+    <div class="tile" data-index="${i}">
+      <img src="Tiles/Tile ${i}.jpg" alt="${labels[i-1]}">
+      <div class="tile-label">${labels[i-1]}</div>
+    </div>
+  `;
+}
+    
       </script>
     </div>
   </div>
